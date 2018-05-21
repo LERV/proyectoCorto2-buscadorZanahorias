@@ -1,3 +1,13 @@
+import csv # Para abrir el archivo csv y cargar los datos
+
+#Funcion para generar archivos por cada paso
+def generar_csv(lista):
+    myFile = open('prueba.txt', 'w')
+    with myFile:
+        writer = csv.writer(myFile)
+        writer.writerows(lista)
+
+
 # Enter your code here. Read input from STDIN. Print output to STDOUT
 class Node:
     def __init__(self,value,point):
