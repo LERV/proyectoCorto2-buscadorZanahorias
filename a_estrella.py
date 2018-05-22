@@ -24,6 +24,7 @@ class Land:
 			for j in range(len(land_list[i])):
 				if land_list[i][j] == "Z":
 					carrots_position_list.append([i,j])
+		print("Lista de las zanahorias encontradas")
 		print(carrots_position_list)
 		return carrots_position_list
 	
@@ -34,7 +35,13 @@ class A_star:
 	def __init__(self):
 		self.land_heuristic_list = []
 
-	#def calculate_heuristic_land(self, land_list, bunny_vision):
+	def calculate_heuristic_land(self, land_list, bunny_vision):
+		for i in range(len(land_heuristic_list)):
+			for j in range(len(land_heuristic_list)):
+				land_heuristic_list[i][j] = "N"
+		
+
+
 
 
 #Class that define the attributes of the bunny
@@ -89,8 +96,12 @@ def write_file(number, list):
 
 
 land_list = store_land_list("entrada.txt")
-land = Land()
-land.locate_carrots(land_list)
+land_test = Land()
+land_test.locate_carrots(land_list)
+bunny_test = Bunny(5) #Bunny with a vision distance of 5 units
+a_star_test = A_star()
+a_star_test.calculate_heuristic_land(bunny_test.vision, land_list)
+
 
 
 
