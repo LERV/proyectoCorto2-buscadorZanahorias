@@ -8,15 +8,24 @@ class Land:
 	carrots_count = None
 	bunny = None
 	land_list = []
+	land_heuristic_list = []
 
-	#def __init__(self, ):
+	def __init__(self, land_lengh, land_width, carrots_count):
+		self.land_lengh = land_lengh
+		self.land_width = land_width
+		self.carrots_count = carrots_count 
 
+	
+	def calculate_heuristic_land():
 
-#class Bunny:
+	
 
-def create_land():
-	land = Land()
+#Class that define the attributes of the bunny
+class Bunny:
+	vision_distance = 0
 
+	def __init__(self, vision_distance):
+		self.vision_distance = vision_distance
 		
 #Fuction that reads and print a file, the non-traveled land
 def read_file(filename):
@@ -45,7 +54,11 @@ def write_file(number, list):
 		file_object.write(string_line)
 	file_object.close()
 
+
+
+#START HERE!!!
 store_land_list("entrada.txt")
+
 
 
 
