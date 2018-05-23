@@ -3,7 +3,7 @@
 import random
 
 #Class that defines the field of carrots with a bunny
-class field:
+class Field:
 	field_length = None 
 	field_width = None
 	carrots_count = None
@@ -19,11 +19,11 @@ class field:
 		self.carrots_count = 0 
 
 	#Funcion that locate the carrots in the field
-	def locate_carrots(self, field_list):
+	def locate_carrots(self):
 		carrots_position_list = []
-		for i in range(len(field_list)):
-			for j in range(len(field_list[i])):
-				if field_list[i][j] == "Z":
+		for i in range(len(self.field_list)):
+			for j in range(len(self.field_list[i])):
+				if self.field_list[i][j] == "Z":
 					carrots_position_list.append([i,j])
 		print("Position of carrots found: ", carrots_position_list)
 		return carrots_position_list
@@ -60,21 +60,30 @@ class Bunny:
 		if direction == "LEFT" and self.bunny_position[1] > 0:
 			field_list[self.bunny_position[0]][self.bunny_position[1]-1] = "C"
 			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
-			self.bunny_position = find_bunny(field_list)
+			self.bunny_position = self.find_bunny(field_list)
 			print(field_list)
+			return field_list
 
-		if direction == "RIGTH" and self.bunny_position[1] < len(field_list[0])-2:
+		if direction == "RIGTH" and self.bunny_position[1] < len(field_list[1])-2:
 			field_list[self.bunny_position[0]][self.bunny_position[1]+1] = "C"
 			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
-			self.bunny_position = find_bunny(field_list)
+			self.bunny_position = self.find_bunny(field_list)
 			print(field_list)
+			return field_list
 
-		if direction == "UP" and self.bunny_position[0]
-
-
-		if direction == "DOWN":
-
-
+		if direction == "UP" and self.bunny_position[0] > 0:
+			field_list[self.bunny_position[0]-1][self.bunny_position[1]] = "C"
+			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
+			self.bunny_position = self.find_bunny(field_list)
+			print(field_list)
+			return field_list			
+		
+		if direction == "DOWN" and self.bunny_position[0]< len(field_list[0]-2):
+			field_list[self.bunny_position[0]-1][self.bunny_position[1]] = "C"
+			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
+			self.bunny_position = self.find_bunny(field_list)
+			print(field_list)
+			return field_list
 
 	#Function that find the bunny in the field
 	def find_bunny(self, field_list):
@@ -132,20 +141,12 @@ def write_file(number, list):
 
 
 #START HERE!!!
-
-
-field_list = store_field_list("entrada.txt")
+field_list_test = store_field_list("entrada.txt")
 bunny_test = Bunny(5) #Bunny with a vision distance of 5 units
-bunny_test.find_bunny(field_list)
-field_test = field()
-field_test.locate_carrots(field_list)
+bunny_test.find_bunny(field_list_test)
+field_test = Field()
+field_test.field_list = field_list_test
+field_test.locate_carrots()
+bunny_test.move("RIGTH", field_test.field_list)
 #a_star_test = A_star()
 #a_star_test.calculate_heuristic_field(5, field_list)
-
-
-
-
-
-
-
-
