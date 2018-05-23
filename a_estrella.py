@@ -64,7 +64,7 @@ class Bunny:
 			print(field_list)
 			return field_list
 
-		if direction == "RIGTH" and self.bunny_position[1] < len(field_list[1])-2:
+		if direction == "RIGTH" and self.bunny_position[1] < len(field_list[0]) - 1:
 			field_list[self.bunny_position[0]][self.bunny_position[1]+1] = "C"
 			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
 			self.bunny_position = self.find_bunny(field_list)
@@ -78,7 +78,7 @@ class Bunny:
 			print(field_list)
 			return field_list			
 		
-		if direction == "DOWN" and self.bunny_position[0]< len(field_list[0]-2):
+		if direction == "DOWN" and self.bunny_position[0] < len(field_list[0]) - 1:
 			field_list[self.bunny_position[0]-1][self.bunny_position[1]] = "C"
 			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
 			self.bunny_position = self.find_bunny(field_list)

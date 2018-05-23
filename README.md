@@ -10,9 +10,6 @@
 
 ### I Semestre 2018</h3>
 
-<h1></h1>
-
----
 
 ## 1. Introducción
 
@@ -53,20 +50,22 @@ La función heurística es un valor que se signa a cada elemento o nodo en una m
 
 ### 3.2. Pruebas y análisis del algoritmo
 
+
 ## 4. Algoritmo Genético
 
 ### 4.1. Diseño del algoritmo
 
 ### 4.2. Pruebas y análisis del algoritmo
 
+## 5. Pruebas unitarias del sistema
 
-## 5. Conclusiones
-
-
-## 6. Apéndice
+## 6. Conclusiones
 
 
-## 7. Referencias Bibliográficas
+## 7. Apéndice
+
+
+## 8. Referencias Bibliográficas
 
 1. A* Search - YouTube. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.youtube.com/watch?v=6TsL96NAZCo
 2. A* search algorithm. (2018, mayo 17). En Wikipedia. Recuperado a partir de https://en.wikipedia.org/w/index.php?title=A*_search_algorithm&oldid=841756385
@@ -74,4 +73,3 @@ La función heurística es un valor que se signa a cada elemento o nodo en una m
 4. Algoritmo de búsqueda A* (A estrella) - Inteligencia Artificial UD. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://20151578079ia.blogspot.es/1508616746/algoritmo-de-busqueda-a-a-estrella-/
 5. A-star Shortest Path Algorithm « Python recipes « ActiveState Code. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://code.activestate.com/recipes/577519-a-star-shortest-path-algorithm/
 6. Implementation of A*. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.redblobgames.com/pathfinding/a-star/implementation.html
-
