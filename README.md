@@ -39,10 +39,10 @@ Algunos puntos clave acerca del funcionamiento del algoritmo son:
 
 
 
-#### 3.1. Diseño del algoritmo</h3>
+#### 3.1. Diseño del algoritmo
 El diseño del algoritmo posee los siguientes componentes:
 
-* **Función heurística _(hx)_ **: Es una función que define un valor heurístico óptimo, el cual define un costo real para alcanzar el objetivo.
+* **Función heurística _(hx)_**: Es una función que define un valor heurístico óptimo, el cual define un costo real para alcanzar el objetivo.
 * **Función de costo _g(x)_**: Es el costo o peso que hay para llegar a un cierto nodo o posición. Para este algoritmo, el costo es
 * **Función de valor _f(x)_**: Es la suma de _g(x)_ con _h(x)_, que permite escoger a cual nodo acceder para obtener la ruta más corta para llegar a un punto.
 
