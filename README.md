@@ -10,9 +10,6 @@
 
 ### I Semestre 2018</h3>
 
-<h1></h1>
-
----
 
 ## 1. Introducción
 
@@ -52,6 +49,7 @@ La función heurística es un valor que se asigna a cada elemento o nodo en una 
 
 
 ### 3.2. Pruebas y análisis del algoritmo
+
 
 ## 4. Algoritmo Genético
 
@@ -93,14 +91,15 @@ El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
 
 ### 4.2. Pruebas y análisis del algoritmo
 
+## 5. Pruebas unitarias del sistema
 
-## 5. Conclusiones
-
-
-## 6. Apéndice
+## 6. Conclusiones
 
 
-## 7. Referencias Bibliográficas
+## 7. Apéndice
+
+
+## 8. Referencias Bibliográficas
 
 1. A* Search - YouTube. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.youtube.com/watch?v=6TsL96NAZCo
 2. A* search algorithm. (2018, mayo 17). En Wikipedia. Recuperado a partir de https://en.wikipedia.org/w/index.php?title=A*_search_algorithm&oldid=841756385
