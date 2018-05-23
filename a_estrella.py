@@ -1,83 +1,131 @@
-# Program for search carrots in a land by a bunny
+# Program for search carrots in a field by a bunny
 
+import random
 
-#Class that defines the land of carrots with a bunny
-class Land:
-	land_length = None 
-	land_width = None
+#Class that defines the field of carrots with a bunny
+class Field:
+	field_length = None 
+	field_width = None
 	carrots_count = None
 	bunny = None
-	land_list = []
-	land_carrots_position = []
+	field_list = []
+	field_carrots_position = []
 
 
-	#Function that construct the class Land
+	#Function that construct the class field
 	def __init__(self):
-		self.land_length = 0
-		self.land_width = 0
+		self.field_length = 0
+		self.field_width = 0
 		self.carrots_count = 0 
 
-	#Funcion that locate the carrots in the land
-	def locate_carrots(self, land_list):
+	#Funcion that locate the carrots in the field
+	def locate_carrots(self):
 		carrots_position_list = []
-		for i in range(len(land_list)):
-			for j in range(len(land_list[i])):
-				if land_list[i][j] == "Z":
+		for i in range(len(self.field_list)):
+			for j in range(len(self.field_list[i])):
+				if self.field_list[i][j] == "Z":
 					carrots_position_list.append([i,j])
-		print("Lista de las zanahorias encontradas")
-		print(carrots_position_list)
+		print("Position of carrots found: ", carrots_position_list)
 		return carrots_position_list
 	
 #Function that define the A* Algorithm
 class A_star:
-	land_heuristic_list = []
+	field_heuristic_list = []
 
 	def __init__(self):
-		self.land_heuristic_list = []
+		self.field_heuristic_list = []
 
-	def calculate_heuristic_land(self, land_list, bunny_vision):
-		for i in range(len(land_heuristic_list)):
-			for j in range(len(land_heuristic_list)):
-				land_heuristic_list[i][j] = "N"
-		
-
-
-
+	def calculate_heuristic_field(self, field_list, bunny_vision):
+		#Fill the field with "N's", after it will be fill of h's cost
+		for i in range(3):
+			position_list = []
+			for j in range(3):
+				position_list.append(random_heuristic())
+			field_heuristic_list.append(position_list)
+		print (self.field_heuristic_list)
+		return self.field_heuristic_list		
 
 #Class that define the attributes of the bunny
 class Bunny:
 	vision_distance = 0
+	bunny_sign = "C"
+	bunny_position = []
 
 	def __init__(self, vision_distance):
 		self.vision_distance = vision_distance
 
-	def move(self, direction, land):
-		return bunny
+	#Function that move the bunny across the carrot's field
+	def move(self, direction, field_list):
+		moved_state = None
+		if direction == "LEFT" and self.bunny_position[1] > 0:
+			field_list[self.bunny_position[0]][self.bunny_position[1]-1] = "C"
+			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
+			self.bunny_position = self.find_bunny(field_list)
+			print(field_list)
+			return field_list
+
+		if direction == "RIGTH" and self.bunny_position[1] < len(field_list[1])-2:
+			field_list[self.bunny_position[0]][self.bunny_position[1]+1] = "C"
+			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
+			self.bunny_position = self.find_bunny(field_list)
+			print(field_list)
+			return field_list
+
+		if direction == "UP" and self.bunny_position[0] > 0:
+			field_list[self.bunny_position[0]-1][self.bunny_position[1]] = "C"
+			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
+			self.bunny_position = self.find_bunny(field_list)
+			print(field_list)
+			return field_list			
 		
-#Fuction that reads and print a file, the non-traveled land
+		if direction == "DOWN" and self.bunny_position[0]< len(field_list[0]-2):
+			field_list[self.bunny_position[0]-1][self.bunny_position[1]] = "C"
+			field_list[self.bunny_position[0]][self.bunny_position[1]] = ""
+			self.bunny_position = self.find_bunny(field_list)
+			print(field_list)
+			return field_list
+
+	#Function that find the bunny in the field
+	def find_bunny(self, field_list):
+		bunny_position = []
+		for i in range(len(field_list)):
+			for j in range(len(field_list[0])):
+				if field_list[i][j] == "C":
+					bunny_position.append(i)
+					bunny_position.append(j)
+		print("Bunny position: ", bunny_position)
+		self.bunny_position = bunny_position
+		return bunny_position
+
+#Function that calculate the heuristic of a node
+def random_heuristic():
+	random_var = random.randint(0,10)
+	return random_var
+		
+#Fuction that reads and print a file, the non-traveled field
 def read_file(filename):
 	file_object = open(filename, "r")
 	#print (file_object.read())
 	return file_object
 
-#Function that calculate the length of the land (X Axis)
-def calculate_land_length(land_list):
-	land_lengt = len(land_list[0])
-	return land_lengt
+#Function that calculate the length of the field (X Axis)
+def calculate_field_length(field_list):
+	field_lengt = len(field_list[0])
+	return field_lengt
 
-#Function that calculate the width of the land (Y Axis)
-def calculate_land_width(land_list):
-	land_width = len(land_list)
-	return land_width
+#Function that calculate the width of the field (Y Axis)
+def calculate_field_width(field_list):
+	field_width = len(field_list)
+	return field_width
 
 #Function that store a open file in
-def store_land_list(filename):
-	land_list = []
-	land_file = read_file(filename)
-	for line in land_file:
-		land_list.append((line.split(','))[:-1])
-	print(land_list)
-	return land_list
+def store_field_list(filename):
+	field_list = []
+	field_file = read_file(filename)
+	for line in field_file:
+		field_list.append((line.split(','))[:-1])
+	print(field_list)
+	return field_list
 
 #Function that writes a list in a file
 def write_file(number, list):
@@ -90,22 +138,13 @@ def write_file(number, list):
 		file_object.write(string_line)
 	file_object.close()
 
-
-
 #START HERE!!!
-
-
-land_list = store_land_list("entrada.txt")
-land_test = Land()
-land_test.locate_carrots(land_list)
+field_list_test = store_field_list("entrada.txt")
 bunny_test = Bunny(5) #Bunny with a vision distance of 5 units
-a_star_test = A_star()
-a_star_test.calculate_heuristic_land(bunny_test.vision, land_list)
-
-
-
-
-
-
-
-
+bunny_test.find_bunny(field_list_test)
+field_test = Field()
+field_test.field_list = field_list_test
+field_test.locate_carrots()
+bunny_test.move("RIGTH", field_test.field_list)
+#a_star_test = A_star()
+#a_star_test.calculate_heuristic_field(5, field_list)
