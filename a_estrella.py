@@ -138,8 +138,6 @@ def write_file(number, list):
 		file_object.write(string_line)
 	file_object.close()
 
-
-
 #START HERE!!!
 field_list_test = store_field_list("entrada.txt")
 bunny_test = Bunny(5) #Bunny with a vision distance of 5 units
