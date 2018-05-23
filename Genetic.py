@@ -1,6 +1,9 @@
 import csv # Para abrir el archivo csv y cargar los datos
 from enum import Enum
 import random  # Para generar numeros aleatorios
+import os
+import sys
+import shutil 
 
 class Dir(Enum):
         RIGHT = 1
@@ -12,8 +15,26 @@ class Dir(Enum):
 x, y, rx, ry, carrotsGoal = 0, 0, 0, 0, 0
 bestBoard = None
 enter = ""
-def generar_csv(lista):
-    myFile = open('prueba.txt', 'w')
+def generate_csv(lista, generation, individual, direction):
+    dire = ""
+    if(direction == Dir.RIGHT):
+        dire = "derecha"
+    elif(direction == Dir.LEFT):
+        dire = "izquierda"
+    elif(direction == Dir.UP):
+        dire = "arriba"
+    elif(direction == Dir.DOWN):
+        dire = "abajo"
+    while(len(generation) != 5):
+        generation = "0" + generation
+    while(len(individual) != 5):
+        individual = "0" + individual
+    try:  
+        path = os.getcwd()
+        os.makedirs(path + "/" + dire + "/" + generation)
+    except OSError:
+        8+2
+    myFile = open(dire + "/" + generation + "/" + individual + '.txt', 'w')
     with myFile:
         writer = csv.writer(myFile)
         writer.writerows(lista)
@@ -69,6 +90,7 @@ def mutate(board,mutationRate):
     global x
     global y
     if(rand <= mutationRate):
+        #print("Mutacion")
         if((rand <= mutationRate / 3 and board[3][0] + board[3][1] != x * y) or board[2] == 0):
             while(True):
                 tmpX = int(random.random() * x)
@@ -152,7 +174,7 @@ def cross(board1, board2):
                 tmpB.append(board1[i][j])
         a.append(tmpA)
         b.append(tmpB)
-    return [[a]], [[b]]
+    return [a], [b]
 
 def crossing(population,crossingPolicy):
     newPopulation = []
@@ -171,10 +193,10 @@ def crossing(population,crossingPolicy):
             newPopulation.append(a)
             newPopulation.append(b)
             offset += 1
-        for u in range(len(newPopulation)):
-            print(newPopulation[u])
+        #for u in range(len(newPopulation)):
+            #print(newPopulation[u])
     else:
-        print(" ")
+        #print(" ")
         length = len(population) - 1
         for i in range(len(population) // 2):
             a, b = cross(population[i][0], population[length - i][0])
@@ -188,8 +210,8 @@ def crossing(population,crossingPolicy):
             b.append(0)
             newPopulation.append(a)
             newPopulation.append(b)
-        for u in range(len(newPopulation)):
-            print(newPopulation[u])
+        #for u in range(len(newPopulation)):
+            #print(newPopulation[u])
     return newPopulation
 
 def startGenetic(board, direction, population_length, generations):
@@ -197,42 +219,68 @@ def startGenetic(board, direction, population_length, generations):
     global y
     global rx
     global ry
+    global carrotsGoal
+    global bestBoard
+    dire = ""
+    if(direction == Dir.RIGHT):
+        dire = "derecha"
+    elif(direction == Dir.LEFT):
+        dire = "izquierda"
+    elif(direction == Dir.UP):
+        dire = "arriba"
+    elif(direction == Dir.DOWN):
+        dire = "abajo"
+    try:
+        shutil.rmtree(dire)
+    except OSError:
+        print ("Error")
     y = len(board)
     x = len(board[0])
     enter = board[0][x-1]
     print("Cuadricula (x,y) ",x,y)
     elements = findElements(board)
     population = generatePopulation(board, population_length, elements)
-    
-
-    for u in range(10):
-        for w in range(10):
-            print(u,w,population[w])
+    #print(population)
+    for generation in range(generations):
+        #print(generation)
+        population = sorted(population, key=lambda item: item[4])
+        #for u in range(len(population)):
+            #print(u,population[u])
+        population = crossing(population,"best")
+        for i in range(len(population)):
             tmp = []
             tmp2 = []
-            for j in range(len(population[w][0])):
-                tmp2.append(population[w][0][j][:])
+            for j in range(len(population[i][0])):
+                tmp2.append(population[i][0][j][:])
             tmp.append(tmp2)
             tmp2 = []
-            tmp2.append(population[w][1][0][:])
-            tmp2.append(population[w][1][1][:])
-            tmp.append(tmp)
-            tmp.append(population[w][2])
-            tmp.append(population[w][3][:])
-            tmp.append(population[w][4])
-            mutate(tmp,0.3)
-            print(u,w,population[w])
-        
-    for u in range(len(population)):
-        print(population[u])
-    crossing(population,"inverted")
-    """
-    for generation in range(generations):
-        population = sorted(population, key=lambda item: item[4])
-
-     
+            tmp2.append(population[i][1][0][:])
+            tmp2.append(population[i][1][1][:])
+            tmp.append(tmp2)
+            tmp.append(population[i][2])
+            tmp.append(population[i][3][:])
+            tmp.append(population[i][4])
+            mutatedIndividual = mutate(tmp,0.3)
+            #print("tmp",mutatedIndividual)
+            #print("population i 0",population[i])
+            #print(searchCarrots(population[i][0], direction, rx, ry))
             carrots, steps = searchCarrots(population[i][0], direction, rx, ry)
-    """    
+            population[i][4] = population[i][2] + 10 * (carrotsGoal - carrots) + steps / 4 
+            carrotsMutated, stepsMutated = searchCarrots(mutatedIndividual[0], direction, rx, ry)
+            mutatedIndividual[4] = mutatedIndividual[2] + 10 * (carrotsGoal - carrotsMutated) + stepsMutated / 4
+            #print(mutatedIndividual)
+            #population[i] = mutatedIndividual
+            
+            if(mutatedIndividual[4] < population[i][4]):
+                population[i] = mutatedIndividual
+            
+            if(bestBoard == None or bestBoard[4] > population[i][4]):
+                bestBoard = population[i]
+                bestBoard.append(generation)
+                bestBoard.append(i)
+            generate_csv(population[i][0], str(generation), str(i), direction)
+    print("Mejor")
+    print(bestBoard)
 
 
 def move(r_x, r_y, direction):
@@ -247,35 +295,48 @@ def move(r_x, r_y, direction):
     return r_x, r_y
 
 
-def searchCarrots(board, direction, r_x, r_y, carrots = 0, steps = 1):
+def searchCarrots(board, direction, r_x, r_y, carrots = 0, steps = 1, changed = False):
     r_x, r_y = move(r_x, r_y, direction)
     global x
     global y
     global enter
-    print("rabbit (x,y)", r_x, r_y, steps, carrots)
+    #print("rabbit (x,y)", r_x, r_y, steps, carrots, changed, direction)
+    #print(board)
     if(r_x < x and r_y < y and board[r_y][r_x] != enter and r_x >= 0 and r_y >= 0):
         if(board[r_y][r_x] != " "):
             if(board[r_y][r_x] == "Z"):
-                searchCarrots(board, direction, r_x, r_y, carrots+1, steps+1)
+                return searchCarrots(board, direction, r_x, r_y, carrots+1, steps+1, changed)
             elif(board[r_y][r_x] == "A"):
-                searchCarrots(board, Dir.UP, r_x, r_y, carrots, steps+1)
+                if(changed and direction == Dir.DOWN):
+                    return carrots, 1000000000
+                else:
+                    return searchCarrots(board, Dir.UP, r_x, r_y, carrots, steps+1, True)
             elif(board[r_y][r_x] == "V"):
-                searchCarrots(board, Dir.DOWN, r_x, r_y, carrots, steps+1)
+                if(changed and direction == Dir.UP):
+                    return carrots, 1000000000
+                else:
+                    return searchCarrots(board, Dir.DOWN, r_x, r_y, carrots, steps+1, True)
             elif(board[r_y][r_x] == ">"):
-                searchCarrots(board, Dir.RIGHT, r_x, r_y, carrots, steps+1)
+                if(changed and direction == Dir.LEFT):
+                    return carrots, 1000000000
+                else:
+                    return searchCarrots(board, Dir.RIGHT, r_x, r_y, carrots, steps+1, True)
             elif(board[r_y][r_x] == "<"):
-                searchCarrots(board, Dir.LEFT, r_x, r_y, carrots, steps+1)
+                if(changed and direction == Dir.RIGHT):
+                    return carrots, 1000000000
+                else:
+                    return searchCarrots(board, Dir.LEFT, r_x, r_y, carrots, steps+1, True)
+            else:
+                return searchCarrots(board, direction, r_x, r_y, carrots, steps+1, changed)
         else:
-            searchCarrots(board, direction, r_x, r_y, carrots, steps+1)
+            return searchCarrots(board, direction, r_x, r_y, carrots, steps+1, changed)
     else:
         return carrots, steps
 
 
 
-
+sys.setrecursionlimit(1000000000)
 
 with open("entrada.txt") as csvarchivo:  ##open(csvURL,encoding="utf8")-- Es para correr en windows
     entrada = list(csv.reader(csvarchivo))
-    print(entrada[:len(entrada)-1])
-    generar_csv(entrada)
-    startGenetic(entrada[:len(entrada)-1],Dir.RIGHT,10,5)
+    startGenetic(entrada[:len(entrada)-1],Dir.RIGHT,1000,10000)
