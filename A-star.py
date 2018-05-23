@@ -1,16 +1,23 @@
-# A* Shortest Path Algorithm
-# http://en.wikipedia.org/wiki/A*
-# FB - 201012256
+
 from heapq import heappush, heappop # for priority queue
 import math
 import time
 import random
 
+##    cost is sometimes written as w or d or l or length
+##    cost_so_far is usually written as g or d or distance
+##    heuristic is usually written as h
+##    In A*, the priority is usually written as f, where f = g + h
+##    came_from is sometimes written as π or parent or previous or prev
+##    frontier is usually called OPEN
+##    visited is the union of OPEN and CLOSED
+##    locations such as current and next are written with letters u, v
+
 class node:
     xPos = 0 # x position
     yPos = 0 # y position
-    distance = 0 # total distance already travelled to reach the node
-    priority = 0 # priority = distance + remaining distance estimate
+    distance = 0 # Cost: g(n) total distance already travelled to reach the node
+    priority = 0 # f(n) priority = distance + remaining distance estimate
     def __init__(self, xPos, yPos, distance, priority):
         self.xPos = xPos
         self.yPos = yPos
@@ -18,14 +25,13 @@ class node:
         self.priority = priority
     def __lt__(self, other): # comparison method for priority queue
         return self.priority < other.priority
+    
     def updatePriority(self, xDest, yDest):
+        #f(n)=g(n)+h(n)
         self.priority = self.distance + self.estimate(xDest, yDest) * 10 # A*
     # give higher priority to going straight instead of diagonally
     def nextMove(self, dirs, d): # d: direction to move
-        if dirs == 8 and d % 2 != 0:
-            self.distance += 14
-        else:
-            self.distance += 10
+        self.distance += 10
     # Estimation function for the remaining distance to the goal.
     def estimate(self, xDest, yDest):
         xd = xDest - self.xPos
@@ -125,12 +131,10 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
 # MAIN
 dirs = 4 # number of possible directions to move on the map
-if dirs == 4:
-    dx = [1, 0, -1, 0]
-    dy = [0, 1, 0, -1]
-elif dirs == 8:
-    dx = [1, 1, 0, -1, -1, -1, 0, 1]
-    dy = [0, 1, 1, 1, 0, -1, -1, -1]
+
+dx = [1, 0, -1, 0]
+dy = [0, 1, 0, -1]
+
 
 n = 30 # horizontal size of the map
 m = 30 # vertical size of the map
@@ -139,23 +143,8 @@ row = [0] * n
 for i in range(m): # create empty map
     the_map.append(list(row))
 
-# fillout the map with a '+' pattern
-##for x in range(n // 8, n * 7 // 8):
-##    the_map[m // 2][x] = 1
-##for y in range(m//8, m * 7 // 8):
-##    the_map[y][n // 2] = 1
 
-# randomly select start and finish locations from a list
-##sf = []
-##sf.append((0, 0, n - 1, m - 1))
-##sf.append((0, m - 1, n - 1, 0))
-##sf.append((n // 2 - 1, m // 2 - 1, n // 2 + 1, m // 2 + 1))
-##sf.append((n // 2 - 1, m // 2 + 1, n // 2 + 1, m // 2 - 1))
-##sf.append((n // 2 - 1, 0, n // 2 + 1, m - 1))
-##sf.append((n // 2 + 1, m - 1, n // 2 - 1, 0))
-##sf.append((0, m / 2 - 1, n - 1, m // 2 + 1))
-##sf.append((n - 1, m // 2 + 1, 0, m // 2 - 1))
-##(xA, yA, xB, yB) = random.choice(sf)
+
 (xA, yA, xB, yB) = (3,4,20,20)
 
 print ('Map size (X,Y): ', n, m)
