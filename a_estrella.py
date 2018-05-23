@@ -1,5 +1,6 @@
 # Program for search carrots in a land by a bunny
 
+import random
 
 #Class that defines the land of carrots with a bunny
 class Land:
@@ -24,8 +25,7 @@ class Land:
 			for j in range(len(land_list[i])):
 				if land_list[i][j] == "Z":
 					carrots_position_list.append([i,j])
-		print("Lista de las zanahorias encontradas")
-		print(carrots_position_list)
+		print("Position of carrots found: ", carrots_position_list)
 		return carrots_position_list
 	
 #Function that define the A* Algorithm
@@ -36,23 +36,45 @@ class A_star:
 		self.land_heuristic_list = []
 
 	def calculate_heuristic_land(self, land_list, bunny_vision):
-		for i in range(len(land_heuristic_list)):
-			for j in range(len(land_heuristic_list)):
-				land_heuristic_list[i][j] = "N"
-		
-
-
-
+		#Fill the land with "N's", after it will be fill of h's cost
+		for i in range(3):
+			position_list = []
+			for j in range(3):
+				position_list.append(random_heuristic())
+			land_heuristic_list.append(position_list)
+		print (self.land_heuristic_list)
+		return self.land_heuristic_list		
 
 #Class that define the attributes of the bunny
 class Bunny:
 	vision_distance = 0
+	bunny_sign = "C"
 
 	def __init__(self, vision_distance):
 		self.vision_distance = vision_distance
 
-	def move(self, direction, land):
-		return bunny
+	#Function that move 
+	"""def move(self, direction, land_list):
+		moved_state = None
+		for i in range(len(land)):
+
+		return land_list"""
+
+	#Function that find the bunny in the land
+	def find_bunny(self, land_list):
+		bunny_position = []
+		for i in range(len(land_list)):
+			for j in range(len(land_list[0])):
+				if land_list[i][j] == "C":
+					bunny_position.append(i)
+					bunny_position.append(j)
+		print("Bunny position: ", bunny_position)
+		return bunny_position
+
+
+def random_heuristic():
+	random_var = random.randint(0,10)
+	return random_var
 		
 #Fuction that reads and print a file, the non-traveled land
 def read_file(filename):
@@ -96,11 +118,12 @@ def write_file(number, list):
 
 
 land_list = store_land_list("entrada.txt")
+bunny_test = Bunny(5) #Bunny with a vision distance of 5 units
+bunny_test.find_bunny(land_list)
 land_test = Land()
 land_test.locate_carrots(land_list)
-bunny_test = Bunny(5) #Bunny with a vision distance of 5 units
-a_star_test = A_star()
-a_star_test.calculate_heuristic_land(bunny_test.vision, land_list)
+#a_star_test = A_star()
+#a_star_test.calculate_heuristic_land(5, land_list)
 
 
 
