@@ -18,7 +18,7 @@
 
 ## 2. Descripción del Problema
 
-En particular, se pide a los estudiantes procesar tableros rectangulares representados como archivos de texto que contendrán un conejo y múltiples zanahorias.
+Se procesarán tableros rectangulares representados como archivos de texto que contendrán un conejo y múltiples zanahorias.
 
 El objetivo primario de cada corrida de programa será que el conejo encuentre una cierta cantidad de zanahorias.
 
@@ -48,14 +48,48 @@ El diseño del algoritmo posee los siguientes componentes:
 
 
 #### 3.1.1. Diseño de función heurística _(hx)_
-La función heurística es un valor que se signa a cada elemento o nodo en una matriz, es decir, la estructura que define la ubicación de las zanahorias y del conejo en el campo.
+La función heurística es un valor que se asigna a cada elemento o nodo en una matriz, es decir, la estructura que define la ubicación de las zanahorias y del conejo en el campo.
 
 
 ### 3.2. Pruebas y análisis del algoritmo
 
 ## 4. Algoritmo Genético
 
+Este tipo de algorimos se encargan de realizar búsquedas por medio de mecanismos de selección natural y génetica. En general estos algorimos funcionan creando un conjunto de individuos que representan las posibles soluciones y se involucran en un proceso semi-aleatorio de cruce para obtener nuevas posibles soluciónes al problema, el resultado del cruce de todos los individuos se denomina generación.
+
+Para dar variabilidad a los individuos se les puede realizar un cambio en la estructura denominado mutación, esto sucede para intentar obtener una nueva posible solución al problema. Todos los individuos de una generación son validados con una prueba de aptitud para verificar si son una solución al problema o están cerca de serlo.
+
+Las características principales de estos algorimos son:
+
+* En cada ejecución se encontraran soluciones distintas, se consideran estocásticos.
+* Se optienen multiples soluciones a un problema y se verifica cúal es la mejor.
+* Son algoritmos que exploran una gran cantidad de soluciones en poco tiempo.
+* La convergencia del algoritmo es poco sensible al punto inicial.
+* Resultan menos afectados por los máximos locales que las técnicas tradicionales.
+* Pueden tardar mucho en converger o no converger en absoluto, también es posible que converge rápido.
+
+
 ### 4.1. Diseño del algoritmo
+El algoritmo empieza con un poco de trabajo de preparación para la parte genética, primero se cuentan los elementos que hay inicialmente en el tablero y se busca la posición inicial del conejo, con estos datos se crea la población inicial que son copias del tablero leído en la entrada.
+
+El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
+
+* Se ordenan los individuos de menor a mayor con respecto a la función de validación (Entre menor sea la el resultado de la función mejor solución es el individuo).
+* Se cruzan los individuos partiendo las columnas a la mitad y con las siguientes políticas de cruce (Según el parámetro dado):
+  - Política de cruce "**best**": Se seleccionan la mitad de los individuos que contienen los mejores resultados de la función de validación y se agregan a la nueva generación, además, se cruzan esos mismos individuos ordenados con respecto a la función de validación. Por ejemplo:
+    -  El mejor individuo se cruza con el segundo mejor, el tercer mejor individuo con el cuarto mejor...
+  - Política de cruce "**inverted**": Se seleccionan la mitad de los individuos que contienen los mejores resultados de la función de validación y se agregan a la nueva generación, además, se cruzan esos mismos individuos, pero en este caso los que obtuvieron mejores resultados con respecto a la función de validación se cruzan con los que tuvieron peores resultados. Por ejemplo:
+    -  El mejor individuo se cruza con el peor, el segundo mejor individuo con el segundo peor...
+- Por lo tanto la nueva generación contiene los mejores individuos de la generación anterior y los cruces de ellos mismos para intentar converger con resultados parecidos a los obtenidos.
+-  Luego cada individuo tienen la posibilidad de ser mutado, dependiendo de la taza de mutación dada como parámetro, esa taza se divide en tres opciones:
+  - Agregar direccionador.
+  - Modificar direccionador.
+  - Eliminar direccionador.
+- Por último se calcula la función de validación para cada nuevo individuo con la función que corresponde a la siguiente fórmula:
+<blockquote>
+<p><strong>h(zanahorias, pasos, direccionadores)</strong> = direccionadores + 10 * (total_zanahorias - zanahorias) + pasos / 4
+</blockquote>
+* Se verifica si el resultado de la función de validación es el mejor y en el caso que si sea entonces se guarda el resultado.
 
 ### 4.2. Pruebas y análisis del algoritmo
 
@@ -74,4 +108,3 @@ La función heurística es un valor que se signa a cada elemento o nodo en una m
 4. Algoritmo de búsqueda A* (A estrella) - Inteligencia Artificial UD. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://20151578079ia.blogspot.es/1508616746/algoritmo-de-busqueda-a-a-estrella-/
 5. A-star Shortest Path Algorithm « Python recipes « ActiveState Code. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://code.activestate.com/recipes/577519-a-star-shortest-path-algorithm/
 6. Implementation of A*. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.redblobgames.com/pathfinding/a-star/implementation.html
-
