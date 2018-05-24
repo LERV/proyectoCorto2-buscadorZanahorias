@@ -97,7 +97,7 @@ Se analizará el resultado para el algoritmo para el siguiente tablero:
 Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6 | Columna 7
 -- | --  | --  | --  | --  | -- | --
  | | |Z| | |
- | | | |Z| |
+Z| | | |Z| |
  | |Z| | | |
  | | |C| | |
  |Z| | | | |
