@@ -1,0 +1,7 @@
+[
+  "Unit_tests/unit_test.py::test_one_row_file_right",
+  "Unit_tests/unit_test.py::test_one_row_file_left",
+  "Unit_tests/unit_test.py::test_one_row_file_up",
+  "Unit_tests/unit_test.py::test_mutation",
+  "Unit_tests/unit_test.py::test_cross"
+]
