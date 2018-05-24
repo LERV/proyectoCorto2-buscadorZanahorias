@@ -105,6 +105,27 @@ El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
 * Se verifica si el resultado de la función de validación es el mejor y en el caso que si sea entonces se guarda el resultado.
 
 ### 4.2. Pruebas y análisis del algoritmo
+Se analizará el resultado para el algoritmo para el siguiente tablero:
+
+Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6
+-- | --  | --  | --  | --  | --
+| | | |Z|  
+|Z| | | |Z
+| | |Z| | 
+| | | |C| 
+| |Z| | | 
+
+Se empieza con dirección hacia la derecha y se obtienen los siguientes resultados:
+* Se ejecutó el algoritmo con 2 tazas de mutación (0.1 y 0.3) y se observa en el gráfico que se obtienen mejores resultados con la taza de de 0.3. El gráfico muestra la cantidad de veces que el algoritmo convergio a un máximo global. Un algoritmo genético debe tener una taza de mutación baja para poder mantener una zona de convergencia fija y no alejarse mutando la mayoria de los individuos. Se concluye que la taza de 0.3 obtiene mejores resultados.
+![alt text](images/genetico1.PNG "Resultados del algoritmo genético con diferentes tazas de mutación")
+
+* El algoritmo fue ejecutado con las 2 políticas de cruce explicadas anteriormente (best e inverted) y se observa en el gráfico que se obtienen mejores resultados con la política que cruza los mejores entre sí porque converge en más ocasiones a un máximo global. Para la política de cruce inverted se consiguió la misma cantidad de máximos globales y de máximos locales. Se concluye que la política de cruce best obtiene mejores resultados.
+![alt text](images/genetico2.PNG "Resultados del algoritmo genético con diferentes políticas de cruce")
+
+
+* El último gráfico muestra la frecuencia de convergencia en las generaciónes. Se observa como en la generación 76 converge en 3 ocasiones mientras en generaciones cercanas se logra una frecuencia convergencia de 2 y en el resto 1. Se visualiza una semi-campana de Gauss en el histograma que puede hacerse más notable con más ejecuciones, ya que solo se ejecutarón 40 para este análisis.
+![alt text](images/genetico3.PNG "Resultados del algoritmo genético con frecuencias de convergencia por generación")
+
 
 ## 5. Conclusiones
 
