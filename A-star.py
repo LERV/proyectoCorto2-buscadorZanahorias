@@ -307,4 +307,3 @@ nuevabusqueda=carrotsSearch("entrada2.txt",2,2) #filename, carrot for find, visi
 #Ver ? rango vision
 #Desde donde encontró Z vuelve a buscar otra zanahoriái
 #En next move generar txt
-
