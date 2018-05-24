@@ -6,8 +6,7 @@ def main():
     if("--a-estrella" in sys.argv):
         vision = int(sys.argv[sys.argv.index("--vision")+1])
         carrots = int(sys.argv[sys.argv.index("--zanahorias")+1])
-        with open(entry) as csvarchivo:  ##open(csvURL,encoding="utf8")-- Es para correr en windows
-            entrada = list(csv.reader(csvarchivo))
+        nuevabusqueda=carrotsSearch(entry,carrots,vision) #filename, carrot for find, vision
     elif("--genetico" in sys.argv):
         individual = int(sys.argv[sys.argv.index("--individuos")+1])
         generation = int(sys.argv[sys.argv.index("--generaciones")+1])
