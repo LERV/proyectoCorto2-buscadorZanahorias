@@ -31,7 +31,7 @@ Tanto para el algoritmo A* como para el algoritmo genético, se definen ciertos 
 
 ## 3. Algoritmo A*
 
-Este algoritmo es una modificación del algoritmo Dijkstra, el cual posee la variante de tener una función heurítica de costo que permite la distancia más corta para llegar a un punto.
+Este algoritmo es una modificación del algoritmo Dijkstra, el cual posee la variante de tener una función de costo heurístico que permite la distancia más corta para llegar a un punto.
 
 Algunos puntos clave acerca del funcionamiento del algoritmo son:
 
@@ -62,8 +62,6 @@ Después de calcular _f(n)_, se verifica cual nodo posee el menor valor y se cam
 
 Cuando se encuentra una zanahoria, se guarda su aparición, y se continúa con la busqueda de otra zanahoria, siempre guardando su recorrido en _f(n)_ hasta llgar a la última zanahoria establecida.
 
-
-
 ### 3.2. Pruebas y análisis del algoritmo
 
 ## 4. Algoritmo Genético
@@ -80,7 +78,6 @@ Las características principales de estos algorimos son:
 * La convergencia del algoritmo es poco sensible al punto inicial.
 * Resultan menos afectados por los máximos locales que las técnicas tradicionales.
 * Pueden tardar mucho en converger o no converger en absoluto, también es posible que converge rápido.
-
 
 ### 4.1. Diseño del algoritmo
 El algoritmo empieza con un poco de trabajo de preparación para la parte genética, primero se cuentan los elementos que hay inicialmente en el tablero y se busca la posición inicial del conejo, con estos datos se crea la población inicial que son copias del tablero leído en la entrada.
@@ -111,6 +108,32 @@ El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
 
 ## 6. Apéndice
 
+### 6.1. Instalar el modulo del programa con pip3
+
+1. En la carpeta donde se ubica este archivo actualmente, ejecutar "pip3 install".
+
+2. Ejecutar  para el algoritmo genetico python3 main.py --tablero-inicial <nombre_archivp> --genetico --<direccion> --individuos <cantidad_individuos> --generaciones <cantidad_generaciones> --politica-cruce <politicas_cruce> --taza-mutacion <taza_mutacion>
+
+
+Se deben tener instalado:
+
+* pip, que viene configurado por defecto en las versiones >= 3. Solamente se debe actualizar con
+
+```
+pip3 install -U pip
+```
+
+Si no está pip3, entonces
+
+```
+sudo apt install python3-pip
+```
+
+* Instalar
+
+```
+sudo apt-get install python3-setuptools
+```
 
 ## 7. Referencias Bibliográficas
 
