@@ -40,8 +40,6 @@ Algunos puntos clave acerca del funcionamiento del algoritmo son:
 * Se posee un acumulado de pasos o distancia recorrida.
 * El conejo recolecta una cantidad predefinida de zanahorias, no necesariamente todas las que hayan en el campo.
 
-
-
 #### 3.1. Diseño del algoritmo
 El diseño del algoritmo posee los siguientes componentes:
 
@@ -51,6 +49,8 @@ El diseño del algoritmo posee los siguientes componentes:
 
 #### 3.1.1. Diseño de función heurística _(hx)_
 La función heurística es un valor que se asigna a cada elemento o nodo en una matriz, es decir, la estructura que define la ubicación de las zanahorias y del conejo en el campo.
+
+Se define la función heurística como la que indica que ara cada nodo hay una distancia aproximada de una zanahoria, calculando primeramente cuál es la zanahoria más cercana que se encuentre en el campo.
 
 #### 3.1.2 Funcionamiento del algoritmo
 El algoritmo comienza localizando el conejo en el campo. Luego, se verifican los nodos o posiciones vecinas a las cuales se puede dezplazar el conejo, y además comprobar si hay zanahorias cercanas.
@@ -72,13 +72,9 @@ Se realiza la ejecución de un campo de zanahorias de tamaño 30x30, y en el cua
 
 ![alt text](images/a_estrella_30x30.png "Prueba de ejecución del programa en un campo de 30x30")
 
-Como se observa en la imagen, se logra determinar que la zanahoria se ubica en la parte vaja, y la unicación inicial del conejo es en la parte alta consiguiendo así que se genere una recorrido buscando siempre la ruta más corta y directa para poder realizar.
+Como se observa en la imagen, se logra determinar que la zanahoria se ubica en la parte baja, y la unicación inicial del conejo es en la parte alta consiguiendo así que se genere una recorrido buscando siempre la ruta más corta y directa para poder realizar.
 
-
-* **Prueba en un campo de _20x20_**
-
-
-
+Además, en el recorrido se muestra que los desplazamientos se hacen de manera vertical y horizontal, sin requerir el uso de diagonales.
 
 
 
