@@ -1,19 +1,28 @@
 import csv # Para abrir el archivo csv y cargar los datos
-from enum import Enum
+from enum import Enum # Para utilizar emun
 import random  # Para generar numeros aleatorios
-import os
-import sys
-import shutil
+import os # Para encontrar la ruta actual
+import sys # Para crear y eliminar carpetas
+import shutil # Para eliminar directorios en cascada
 
+# Enum para manejar las direcciones
 class Dir(Enum):
         RIGHT = 1
         LEFT = 2
         UP = 3
         DOWN = 4
 
+# x es la cantidad de columnas
+# y es la cantidad de filas
+# rx es la columna donde esta el conejo
+# ry es la fila donde esta el conejo
+# carrotsGoal es la cantidad de zanahorias que hay en el tablero
 x, y, rx, ry, carrotsGoal = 0, 0, 0, 0, 0
+# bestBoard es el individuo con el mejor resultado
 bestBoard = None
+# Caracter de enter
 enter = ""
+# Crea los archivos csv con la ruta direccion/generacion/individuo.txt
 def generate_csv(lista, generation, individual, direction):
     dire = ""
     if(direction == Dir.RIGHT):
@@ -38,6 +47,7 @@ def generate_csv(lista, generation, individual, direction):
         writer = csv.writer(myFile)
         writer.writerows(lista)
 
+# Genera la poblacion inicial, son copias del tablero de entrada
 def generatePopulation(board, population_length, elements):
     population = []
     for i in range(population_length):
@@ -53,6 +63,7 @@ def generatePopulation(board, population_length, elements):
         population.append(tmp.copy())
     return population
 
+# Encuentra la cantidad de elementos en un tablero y la ubicacion del conejo
 def findElements(board):
     leftCounter = 0
     rightCounter = 0
@@ -82,7 +93,7 @@ def findElements(board):
                     rightCounter += 1
     return [leftCounter, rightCounter]
 
-
+# Mutacion del individuo, recibe como parametro la taza que puede ser variable
 def mutate(board,mutationRate):
     rand = random.random()
     global x
@@ -155,6 +166,7 @@ def mutate(board,mutationRate):
             board[2] -= 1
     return board
 
+# Cruza 2 individuos
 def cross(board1, board2):
     a = []
     b = []
@@ -172,6 +184,7 @@ def cross(board1, board2):
         b.append(tmpB)
     return [a], [b]
 
+# Se encarga de los politicas de cruce, y selecciona los individuos para cruce
 def crossing(population,crossingPolicy):
     newPopulation = []
     if(crossingPolicy == "best"):
@@ -239,6 +252,7 @@ def crossing(population,crossingPolicy):
             newPopulation.append(b)
     return newPopulation
 
+# Funcion principal del algoritmo genetico, realiza todas las secciones del algoritmo
 def startGenetic(board, direction, population_length, generations, crossPolicy, mutationRate):
     global x
     global y
@@ -284,8 +298,11 @@ def startGenetic(board, direction, population_length, generations, crossPolicy, 
                 bestBoard.append(generation)
                 bestBoard.append(i)
             generate_csv(population[i][0], str(generation), str(i), direction)
-    print("El mejor fue el individuo: " + str(bestBoard[6]) + " de la generacion " + str(bestBoard[5]) + " con una aptitud: " + str(bestBoard[4]))
+    print("El mejor fue el individuo: " + str(bestBoard[6]) 
+	+ " de la generacion " + str(bestBoard[5]) + " con una aptitud: " + str(bestBoard[4]))
+    return 0
 
+# Mueve el conejo en la direccion indicada
 def move(r_x, r_y, direction):
     if(direction == Dir.UP):
         r_y -= 1
@@ -297,6 +314,7 @@ def move(r_x, r_y, direction):
         r_x -= 1
     return r_x, r_y
 
+# Busca la cantidad de zanahorias que se puede comer el conejo y cuenta los pasos que realiza el conejo
 def searchCarrots(board, direction, r_x, r_y, carrots = 0, steps = 1, changed = False, carrotsList = None):
     r_x, r_y = move(r_x, r_y, direction)
     global x
@@ -341,28 +359,3 @@ def searchCarrots(board, direction, r_x, r_y, carrots = 0, steps = 1, changed = 
             return carrots, steps
     else:
         return 0, 1000000000
-
-def main():
-    entry = sys.argv[sys.argv.index("--tablero-inicial")+1]
-    if("--a-estrella" in sys.argv):
-        vision = int(sys.argv[sys.argv.index("--vision")+1])
-        carrots = int(sys.argv[sys.argv.index("--zanahorias")+1])
-        with open(entry) as csvarchivo:  ##open(csvURL,encoding="utf8")-- Es para correr en windows
-            entrada = list(csv.reader(csvarchivo))
-    elif("--genetico" in sys.argv):
-        individual = int(sys.argv[sys.argv.index("--individuos")+1])
-        generation = int(sys.argv[sys.argv.index("--generaciones")+1])
-        if("--derecha" in sys.argv):
-           direction =  Dir.RIGHT
-        elif("--izquierda" in sys.argv):
-           direction =  Dir.LEFT
-        elif("--arriba" in sys.argv):
-           direction =  Dir.UP
-        elif("--abajo" in sys.argv):
-           direction =  Dir.DOWN
-        crossPolicy = sys.argv[sys.argv.index("--politica-cruce")+1]
-        mutationRate = float(sys.argv[sys.argv.index("--taza-mutacion")+1])
-        with open(entry) as csvarchivo:  ##open(csvURL,encoding="utf8")-- Es para correr en windows
-            entrada = list(csv.reader(csvarchivo))
-            startGenetic(entrada[:len(entrada)-1],direction,individual,generation,crossPolicy,mutationRate)
-main()
