@@ -124,7 +124,7 @@ Se empieza con dirección hacia la derecha y se obtienen los siguientes resultad
 
 ## 5. Conclusiones
 
-Como conclusiones para la realización del proyecto, se puden concluir las siguientes:
+Como conclusiones para la realización del proyecto, se pueden mencionar las siguientes:
 
 * Para el algoritmo A* es muy importante tener definida la función heurística que permitirá calcular cuál es el nodo óptimo para escoger el camino, ya que es una de las partes claves del algoritmo.
 
@@ -143,7 +143,7 @@ Como conclusiones para la realización del proyecto, se puden concluir las sigui
 
 1. En la carpeta donde se ubica este archivo actualmente, ejecutar "pip3 install".
 
-2. Ejecutar  para el algoritmo genetico python3 main.py --tablero-inicial <nombre_archivp> --genetico --<direccion> --individuos <cantidad_individuos> --generaciones <cantidad_generaciones> --politica-cruce <politicas_cruce> --taza-mutacion <taza_mutacion>
+2. Ejecutar  para el algoritmo genético python3 main.py --tablero-inicial <nombre_archivp> --genetico --<direccion> --individuos <cantidad_individuos> --generaciones <cantidad_generaciones> --politica-cruce <politicas_cruce> --taza-mutacion <taza_mutacion>
 
 
 Se deben tener instalado:
