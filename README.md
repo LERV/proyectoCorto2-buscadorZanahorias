@@ -35,7 +35,6 @@ Este algoritmo es una modificación del algoritmo Dijkstra, el cual posee la var
 
 Algunos puntos clave acerca del funcionamiento del algoritmo son:
 
-
 * Se debe mover el conejo un paso a la vez.
 * El conejo se puede mover hacia arriba, abajo, izquierda o derecha únicamente.
 * El conejo posee una distancia de visión según se establezca en el programa.
@@ -108,9 +107,9 @@ Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6
 -- | --  | --  | --  | --  | --
 | | | |Z|  
 |Z| | | |Z
-| | |Z| | 
-| | | |C| 
-| |Z| | | 
+| | |Z| |
+| | | |C|
+| |Z| | |
 
 Se empieza con dirección hacia la derecha y se obtienen los siguientes resultados:
 * Se ejecutó el algoritmo con 2 tazas de mutación (0.1 y 0.3) y se observa en el gráfico que se obtienen mejores resultados con la taza de de 0.3. El gráfico muestra la cantidad de veces que el algoritmo convergio a un máximo global. Un algoritmo genético debe tener una taza de mutación baja para poder mantener una zona de convergencia fija y no alejarse mutando la mayoria de los individuos. Se concluye que la taza de 0.3 obtiene mejores resultados.
@@ -124,6 +123,18 @@ Se empieza con dirección hacia la derecha y se obtienen los siguientes resultad
 ![alt text](images/genetico3.PNG "Resultados del algoritmo genético con frecuencias de convergencia por generación")
 
 ## 5. Conclusiones
+
+Como conclusiones para la realización del proyecto, se puden concluir las siguientes:
+
+* Para el algoritmo A* es muy importante tener definida la función heurística que permitirá calcular cuál es el nodo óptimo para escoger el camino, ya que es una de las partes claves del algoritmo.
+
+* Otro punto importante por destacar es la cantidad de visión que se le asigne al conejo, ya que con esta se podrá calcular de forma más precisa la unicación de las zanahorias.
+
+* La función de costo _g(x)_ se mantiene de forma igualitaria para todos los caminos.
+
+* Es importante tener en cuenta la ubicación de las zanahorias, ya que con estas se logra determinar una función heurística con un valor más representativo sobre la distancia a la que se encuentra el conejo de la zanahoria.
+
+* También se puede mencionar que las cercanías de las zanahorias entre ellas pueden influir en la búsqueda del camino a elegir, y por esta razón se usa la aleatoriedad con el fin de tomar una decisión de búsqueda.
 
 
 ## 6. Apéndice

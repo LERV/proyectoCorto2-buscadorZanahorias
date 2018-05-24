@@ -89,6 +89,18 @@ class node:
         # d = max(abs(xd), abs(yd))
         return(d)
 
+#Function that writes a list in a file
+def write_file(number, list):
+    file_object = open("file"+str(number)+".txt", 'w')
+    for i in range(len(list)):
+        string_line = ""
+        for j in range(len(list[0])):
+            string_line = string_line + str(list[i][j]) + ","
+        string_line = string_line + "\n"
+        file_object.write(string_line)
+    file_object.close()
+    return file_object         
+
 # A-star algorithm.
 # The path returned will be a string of digits of directions.
 def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
@@ -242,20 +254,31 @@ if len(route) > 0:
 
 # display the map with the route added
 print ('Map:')
+
+write_file(5, the_map)
 for y in range(m):
     for x in range(n):
         xy = the_map[y][x]
         if xy == 0:
-            print ('.',end="") # space
+            print (',',end="") # space
         elif xy == 1:
             print ('O',end="") # obstacle
         elif xy == 2:
             print ('S',end="") # start
         elif xy == 3:
-            print ('R',end="") # route
+            print ('C',end="") # route
         elif xy == 4:
             print ('F',end="") # finish
     print()
+
+
+
+
+
+
+
+
+
 
 #Busco todoas Z, y me voy a la primera
 #Ver ? rango vision
