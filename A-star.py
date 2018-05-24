@@ -1,4 +1,3 @@
-
 from heapq import heappush, heappop # for priority queue
 import math
 import time
@@ -12,6 +11,49 @@ import random
 ##    frontier is usually called OPEN
 ##    visited is the union of OPEN and CLOSED
 ##    locations such as current and next are written with letters u, v
+
+#Class that defines the field of carrots with a bunny
+class Field:
+    field_length = None 
+    field_width = None
+    carrots_count = None
+    bunny_position = (0,0)
+    field_list = [] #List map
+    carrots_position_list = []
+
+
+    #Function that construct the class field
+    def __init__(self,filename):
+        self.field_length = 0
+        self.field_width = 0
+        self.carrots_count = 0
+        self.store_field_list(filename) 
+        self.locate_carrots()
+        self.find_bunny()
+
+    #Funcion that locate the carrots in the field
+    def locate_carrots(self):
+        for i in range(len(self.field_list)):
+            for j in range(len(self.field_list[i])):
+                if self.field_list[i][j] == "Z":
+                    self.carrots_position_list.append((i,j))
+        print("Position of carrots found: ", self.carrots_position_list)
+
+    def find_bunny(self):
+        for i in range(len(self.field_list)):
+            for j in range(len(self.field_list[i])):
+                #print("Va,i,j",self.field_list[i][j],i,j)
+                if self.field_list[i][j] == "C":
+                    self.bunny_position=(i,j)
+
+        print("Bunny position: ", self.bunny_position)
+
+    #Function that store a open file in
+    def store_field_list(self,filename):      
+        field_file = open(filename, "r")
+        for line in field_file:
+            self.field_list.append((line.split(','))[:-1])
+        print(self.field_list)
 
 class node:
     xPos = 0 # x position
@@ -85,6 +127,8 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
             while not (x == xA and y == yA):
                 j = dir_map[y][x]
                 c = str((j + dirs // 2) % dirs)
+                print("Si llega...-C:",c," -j:",j," -dirs",dirs)
+                print("x,y:",x,y)
                 path = c + path
                 x += dx[j]
                 y += dy[j]
@@ -130,31 +174,45 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
     return 'No route found' # if no route found
 
 # MAIN
+#****************************Generacion de mapa*******************************
+nuevoCampo=Field("entrada.txt")
+print("***************************************************************")
+
+print("Mapa:",nuevoCampo.field_list)
+print("Pos zanahorias",nuevoCampo.carrots_position_list)
+print("Conejo pos:",nuevoCampo.bunny_position)
+
+input('Press Enter...')
+#******************************************************************************
+
 dirs = 4 # number of possible directions to move on the map
 
-dx = [1, 0, -1, 0]
-dy = [0, 1, 0, -1]
+
+dx = [1, 0, -1, 0] #Derecha=1 Izquierda=-1
+dy = [0, 1, 0, -1] #Abajo
 
 
 n = 30 # horizontal size of the map
 m = 30 # vertical size of the map
 the_map = []
-row = [0] * n
+row = [0] * n  #Mapa esta lleno de 0 por defecto
 for i in range(m): # create empty map
     the_map.append(list(row))
 
 
-
-(xA, yA, xB, yB) = (3,4,20,20)
+(xA, yA, xB, yB) = (3,4,20,20) #Points Start and Finish
+#(xA, yA, xB, yB) = (nuevoCampo.bunny_position[0],nuevoCampo.bunny_position[1],nuevoCampo.carrots_position_list[0][0],nuevoCampo.carrots_position_list[][]) #Points Start and Finish
 
 print ('Map size (X,Y): ', n, m)
 print ('Start: ', xA, yA)
 print ('Finish: ', xB, yB)
 t = time.time()
+
+#the_map es un matriz que tiene nuestra info
 route = pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB)
 print ('Time to generate the route (seconds): ', time.time() - t)
 print ('Route:')
-print (route)
+print ("rura:",route)
 
 # mark the route on the map
 if len(route) > 0:
@@ -185,4 +243,18 @@ for y in range(m):
             print ('F',end="") # finish
     print()
 
+#Busco todoas Z, y me voy a la primera
+#Ver ? rango vision
+#Desde donde encontró Z vuelve a buscar otra zanahoriái
+#En next move generar txt
+
+#****************************Generacion de mapa*******************************
+nuevoCampo=Field("entrada.txt")
+print("***************************************************************")
+
+print("Mapa:",nuevoCampo.field_list)
+print("Pos zanahorias",nuevoCampo.carrots_position_list)
+print("Conejo pos:",nuevoCampo.bunny_position)
+
 input('Press Enter...')
+#******************************************************************************
