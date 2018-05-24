@@ -96,11 +96,11 @@ Se analizará el resultado para el algoritmo para el siguiente tablero:
 
 Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6 | Columna 7
 -- | --  | --  | --  | --  | -- | --
-| | |Z| | |
-| | | |Z| |
-| |Z| | | |
-| | |C| | |
-|Z| | | | |
+ | | |Z| | |
+ | | | |Z| |
+ | |Z| | | |
+ | | |C| | |
+ |Z| | | | |
 
 Se empieza con dirección hacia la derecha y se obtienen los siguientes resultados:
 * Se ejecutó el algoritmo con 2 tazas de mutación (0.1 y 0.3) y se observa en el gráfico que se obtienen mejores resultados con la taza de de 0.3. El gráfico muestra la cantidad de veces que el algoritmo convergio a un máximo global. Un algoritmo genético debe tener una taza de mutación baja para poder mantener una zona de convergencia fija y no alejarse mutando la mayoria de los individuos. Se concluye que la taza de 0.3 obtiene mejores resultados.
