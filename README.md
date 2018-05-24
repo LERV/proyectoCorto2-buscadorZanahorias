@@ -117,6 +117,7 @@ El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
 <blockquote>
 <p><strong>h(zanahorias, pasos, direccionadores)</strong> = direccionadores + 10 * (total_zanahorias - zanahorias) + pasos / 4
 </blockquote>
+
 * Se verifica si el resultado de la función de validación es el mejor y en el caso que si sea entonces se guarda el resultado.
 
 ### 4.2. Pruebas y análisis del algoritmo
@@ -124,7 +125,7 @@ Se analizará el resultado para el algoritmo para el siguiente tablero:
 
 Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6
 -- | --  | --  | --  | --  | --
-| | | |Z|  
+| | | |Z|
 |Z| | | |Z
 | | |Z| |
 | | | |C|
@@ -155,10 +156,18 @@ Como conclusiones para la realización del proyecto, se pueden mencionar las sig
 
 * También se puede mencionar que las cercanías de las zanahorias entre ellas pueden influir en la búsqueda del camino a elegir, y por esta razón se usa la aleatoriedad con el fin de tomar una decisión de búsqueda.
 
+* El algoritmo genético necesita una cantidad de individuos y generaciones proporcional al tamaño del tablero de entrada.
+
+* Un tablero con una gran cantidad de zanahorias lleva muchos generaciones en poder llegar a un máximo global porque la taza de mutación es baja.
+
+* La pólitica de cruce que relaciona los mejores individuos obtiene mejores resultados que la la pólitica de cruce invertida.
+
+* El algoritmo génetico tiene la ventaja que examina muchas opciones por lo que es más probable que llegue a un máximo global.
+
 
 ## 6. Apéndice
 
-### 6.1. Instalar el modulo del programa con pip3
+### 6.1. Instalar el módulo del programa con pip3
 
 1. En la carpeta donde se ubica este archivo actualmente, ejecutar "pip3 install".
 

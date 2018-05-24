@@ -3,6 +3,10 @@ import math
 import time
 import random
 
+
+global the_mapGlobal
+the_mapGlobal=[]
+
 ##    cost is sometimes written as w or d or l or length
 ##    cost_so_far is usually written as g or d or distance
 ##    heuristic is usually written as h
@@ -52,8 +56,26 @@ class Field:
     def store_field_list(self,filename):      
         field_file = open(filename, "r")
         for line in field_file:
-            self.field_list.append((line.split(','))[:-1])
-        #print(self.field_list)
+            print("Line",line,len(line[0]))
+            tempLine=line.replace(' ','0')
+            tempLine=tempLine.replace("C",'2')  #2
+            tempLine=tempLine.replace("Z",'4')  #4
+            listaTempLine=tempLine.split(',')[:-1]
+          
+            
+
+            print("listaTempLine",listaTempLine)
+            
+            #Convert to int
+            listaTempLine2=[]
+            for i in range(len(listaTempLine)):
+                print("A:",listaTempLine[i])
+                listaTempLine2.append(int(listaTempLine[i]))
+            if (line.split(','))[:-1]!=[]:
+                self.field_list.append((line.split(','))[:-1])
+                the_mapGlobal.append((listaTempLine2))
+        #self.field_list=self.field_list[len(self.field_list):-1]
+        print("map Sin mod",self.field_list)
 
 class node:
     xPos = 0 # x position
@@ -65,18 +87,15 @@ class node:
         self.yPos = yPos
         self.distance = distance
         self.priority = priority
-
     def __lt__(self, other): # comparison method for priority queue
         return self.priority < other.priority
     
     def updatePriority(self, xDest, yDest):
         #f(n)=g(n)+h(n)
         self.priority = self.distance + self.estimate(xDest, yDest) * 10 # A*
-    
     # give higher priority to going straight instead of diagonally
     def nextMove(self, dirs, d): # d: direction to move
         self.distance += 10
-    
     # Estimation function for the remaining distance to the goal.
     def estimate(self, xDest, yDest):
         xd = xDest - self.xPos
@@ -88,18 +107,6 @@ class node:
         # Chebyshev distance
         # d = max(abs(xd), abs(yd))
         return(d)
-
-#Function that writes a list in a file
-def write_file(number, list):
-    file_object = open("file"+str(number)+".txt", 'w')
-    for i in range(len(list)):
-        string_line = ""
-        for j in range(len(list[0])):
-            string_line = string_line + str(list[i][j]) + ","
-        string_line = string_line + "\n"
-        file_object.write(string_line)
-    file_object.close()
-    return file_object         
 
 # A-star algorithm.
 # The path returned will be a string of digits of directions.
@@ -115,7 +122,6 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
     pq = [[], []] # priority queues of open (not-yet-tried) nodes
     pqi = 0 # priority queue index
-    
     # create the start node and push into list of open nodes
     n0 = node(xA, yA, 0, 0)
     n0.updatePriority(xB, yB)
@@ -124,7 +130,6 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
     # A* search
     while len(pq[pqi]) > 0:
-        
         # get the current node w/ the highest priority
         # from the list of open nodes
         n1 = pq[pqi][0] # top node
@@ -138,15 +143,13 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
         # quit searching when the goal is reached
         # if n0.estimate(xB, yB) == 0:
         if x == xB and y == yB:
-            
             # generate the path from finish to start
             # by following the dirs
             path = ''
             while not (x == xA and y == yA):
                 j = dir_map[y][x]
                 c = str((j + dirs // 2) % dirs)
-                
-                # print("Si llega...-C:",c," -j:",j," -dirs",dirs)
+                #print("Si llega...-C:",c," -j:",j," -dirs",dirs)
                 #print("x,y:",x,y)
                 path = c + path
                 x += dx[j]
@@ -159,27 +162,21 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
             ydy = y + dy[i]
             if not (xdx < 0 or xdx > n-1 or ydy < 0 or ydy > m - 1
                     or the_map[ydy][xdx] == 1 or closed_nodes_map[ydy][xdx] == 1):
-                
                 # generate a child node
                 m0 = node(xdx, ydy, n0.distance, n0.priority)
                 m0.nextMove(dirs, i)
                 m0.updatePriority(xB, yB)
-                
                 # if it is not in the open list then add into that
                 if open_nodes_map[ydy][xdx] == 0:
                     open_nodes_map[ydy][xdx] = m0.priority
                     heappush(pq[pqi], m0)
-                    
                     # mark its parent node direction
                     dir_map[ydy][xdx] = (i + dirs // 2) % dirs
                 elif open_nodes_map[ydy][xdx] > m0.priority:
-                    
                     # update the priority
                     open_nodes_map[ydy][xdx] = m0.priority
-                    
                     # update the parent direction
                     dir_map[ydy][xdx] = (i + dirs // 2) % dirs
-                    
                     # replace the node
                     # by emptying one pq to the other one
                     # except the node to be replaced will be ignored
@@ -188,7 +185,6 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
                         heappush(pq[1 - pqi], pq[pqi][0])
                         heappop(pq[pqi])
                     heappop(pq[pqi]) # remove the target node
-                    
                     # empty the larger size priority queue to the smaller one
                     if len(pq[pqi]) > len(pq[1 - pqi]):
                         pqi = 1 - pqi
@@ -199,100 +195,104 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
                     heappush(pq[pqi], m0) # add the better node instead
     return 'No route found' # if no route found
 
+class carrotsSearch:
+    """docstring for ClassName"""
+    def __init__(self, filename):
+
+        #****************************Generacion de mapa*******************************
+        nuevoCampo=Field(filename)
+        print("***************************************************************")
+
+        print("Mapa:",nuevoCampo.field_list)
+        print("Pos zanahorias",nuevoCampo.carrots_position_list)
+        print("Conejo pos:",nuevoCampo.bunny_position)
+        print("MapaP",the_mapGlobal)
+
+        #input('Press Enter...')
+        #******************************************************************************
+        print()
+        print()
+        for parOrdenadoZ in range(len(nuevoCampo.carrots_position_list)):
+
+            print("****************************Buscando Zanahoría #******",parOrdenadoZ)
+
+            dirs = 4 # number of possible directions to move on the map
+
+
+            dx = [1, 0, -1, 0] #Derecha=1 Izquierda=-1
+            dy = [0, 1, 0, -1] #Abajo
+
+
+            the_mapAux=the_mapGlobal[:]
+            #MAP
+            m = len(the_mapAux) # horizontal size of the map
+            n = len(the_mapAux[0]) # vertical size of the map
+
+            the_mapX = []
+            row = [0] * n  #Mapa esta lleno de 0 por defecto
+            for i in range(m): # create empty map
+                the_mapX.append(list(row))
+
+            print("MAp X",the_mapX)
+
+
+            #-----------------------
+
+            (xA, yA, xB, yB) = (nuevoCampo.bunny_position[0],nuevoCampo.bunny_position[1],nuevoCampo.carrots_position_list[parOrdenadoZ][0],nuevoCampo.carrots_position_list[parOrdenadoZ][1]) #Points Start and Finish
+            nuevoCampo.bunny_position=(nuevoCampo.carrots_position_list[parOrdenadoZ][0],nuevoCampo.carrots_position_list[parOrdenadoZ][1])
+            #nuevoCampo.bunny_position=nuevoCampo.carrots_position_list[parOrdenadoZ][1]
+            print("Siguiente Z en",nuevoCampo.bunny_position)
+            #(xA, yA, xB, yB)=( int(i) for i in input().strip().split(",") )
+
+            #(xA, yA, xB, yB) = (nuevoCampo.bunny_position[0],nuevoCampo.bunny_position[1],,11) #Points Start and Finish
+
+            print ('Map size (X,Y): ', m, n)
+            print ('Start: ', xA, yA)
+            print ('Finish: ', xB, yB)
+            t = time.time()
+
+
+            #the_map es un matriz que tiene nuestra info
+            route = pathFind(the_mapAux, n, m, dirs, dx, dy, xA, yA, xB, yB)
+            print ('Time to generate the route (seconds): ', time.time() - t)
+            print ("Ruta:",route)
+
+            # mark the route on the map
+            if len(route) > 0:
+                x = xA
+                y = yA
+                the_mapAux[y][x] = 2
+                for i in range(len(route)):
+                    j = int(route[i])
+                    x += dx[j]
+                    y += dy[j]
+                    the_mapAux[y][x] = 3
+                the_mapAux[y][x] = 4
+
+            # display the map with the route added
+            print ('Map:')
+            for y in range(m):
+                for x in range(n):
+                    xy = the_mapAux[y][x]
+                    if xy == 0:
+                        print ('.',end="") # space
+                    elif xy == 1:
+                        print ('O',end="") # obstacle
+                    elif xy == 2:
+                        print ('S',end="") # start
+                    elif xy == 3:
+                        print ('R',end="") # route
+                    elif xy == 4:
+                        print ('F',end="") # finish
+                print()
+
+
+        
+
 # MAIN
-#****************************Generacion de mapa*******************************
-"""nuevoCampo=Field("entrada.txt")
-print("***************************************************************")
-
-print("Mapa:",nuevoCampo.field_list)
-print("Pos zanahorias",nuevoCampo.carrots_position_list)
-print("Conejo pos:",nuevoCampo.bunny_position)
-
-input('Press Enter...')
-#******************************************************************************
-"""
-dirs = 4 # number of possible directions to move on the map
-
-
-dx = [1, 0, -1, 0] #Derecha=1 Izquierda=-1
-dy = [0, 1, 0, -1] #Abajo
-
-
-n = 20 # horizontal size of the map
-m = 20 # vertical size of the map
-the_map = []
-row = [0] * n  #Mapa esta lleno de 0 por defecto
-for i in range(m): # create empty map
-    the_map.append(list(row))
-
-
-(xA, yA, xB, yB) = (8,9,10,15) #Points Start and Finish
-#(xA, yA, xB, yB) = (nuevoCampo.bunny_position[0],nuevoCampo.bunny_position[1],nuevoCampo.carrots_position_list[0][0],nuevoCampo.carrots_position_list[][]) #Points Start and Finish
-
-print ('Map size (X,Y): ', n, m)
-print ('Start: ', xA, yA)
-print ('Finish: ', xB, yB)
-t = time.time()
-
-#the_map es un matriz que tiene nuestra info
-route = pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB)
-print ('Time to generate the route (seconds): ', time.time() - t)
-print ('Route:')
-print ("rura:",route)
-
-# mark the route on the map
-if len(route) > 0:
-    x = xA
-    y = yA
-    the_map[y][x] = 2
-    for i in range(len(route)):
-        j = int(route[i])
-        x += dx[j]
-        y += dy[j]
-        the_map[y][x] = 3
-    the_map[y][x] = 4
-
-# display the map with the route added
-print ('Map:')
-
-write_file(5, the_map)
-for y in range(m):
-    for x in range(n):
-        xy = the_map[y][x]
-        if xy == 0:
-            print (',',end="") # space
-        elif xy == 1:
-            print ('O',end="") # obstacle
-        elif xy == 2:
-            print ('C',end="") # start
-        elif xy == 3:
-            print ('C',end="") # route
-        elif xy == 4:
-            print ('Z',end="") # finish
-    print()
-
-
-
-
-
-
-
-
-
+nuevabusqueda=carrotsSearch("entrada2.txt")
 
 #Busco todoas Z, y me voy a la primera
 #Ver ? rango vision
 #Desde donde encontró Z vuelve a buscar otra zanahoriái
 #En next move generar txt
-
-#****************************Generacion de mapa*******************************
-"""nuevoCampo=Field("entrada.txt")
-print("***************************************************************")
-
-print("Mapa:",nuevoCampo.field_list)
-print("Pos zanahorias",nuevoCampo.carrots_position_list)
-print("Conejo pos:",nuevoCampo.bunny_position)
-
-input('Press Enter...')
-#******************************************************************************
-"""
