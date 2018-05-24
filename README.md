@@ -7,7 +7,6 @@
 * Luis Edward Rodríguez Varela - 2014082498
 
 
-
 ### I Semestre 2018</h3>
 
 
@@ -62,6 +61,26 @@ Después de calcular _f(n)_, se verifica cual nodo posee el menor valor y se cam
 Cuando se encuentra una zanahoria, se guarda su aparición, y se continúa con la busqueda de otra zanahoria, siempre guardando su recorrido en _f(n)_ hasta llgar a la última zanahoria establecida.
 
 ### 3.2. Pruebas y análisis del algoritmo
+
+Considerando lo desarrollado para el algoritmo, se realizan las siguientes pruebas, con la variación de las dimensiones del campo.
+
+
+* **Prueba con un campo de _30x30_**
+
+
+Se realiza la ejecución de un campo de zanahorias de tamaño 30x30, y en el cual se le agrega una zanahoria.
+
+![alt text](images/a_estrella_30x30.png "Prueba de ejecución del programa en un campo de 30x30")
+
+Como se observa en la imagen, se logra determinar que la zanahoria se ubica en la parte vaja, y la unicación inicial del conejo es en la parte alta consiguiendo así que se genere una recorrido buscando siempre la ruta más corta y directa para poder realizar.
+
+
+* **Prueba en un campo de _20x20_**
+
+
+
+
+
 
 ## 4. Algoritmo Genético
 

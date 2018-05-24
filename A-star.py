@@ -218,15 +218,15 @@ dx = [1, 0, -1, 0] #Derecha=1 Izquierda=-1
 dy = [0, 1, 0, -1] #Abajo
 
 
-n = 30 # horizontal size of the map
-m = 30 # vertical size of the map
+n = 20 # horizontal size of the map
+m = 20 # vertical size of the map
 the_map = []
 row = [0] * n  #Mapa esta lleno de 0 por defecto
 for i in range(m): # create empty map
     the_map.append(list(row))
 
 
-(xA, yA, xB, yB) = (3,4,20,20) #Points Start and Finish
+(xA, yA, xB, yB) = (8,9,10,15) #Points Start and Finish
 #(xA, yA, xB, yB) = (nuevoCampo.bunny_position[0],nuevoCampo.bunny_position[1],nuevoCampo.carrots_position_list[0][0],nuevoCampo.carrots_position_list[][]) #Points Start and Finish
 
 print ('Map size (X,Y): ', n, m)
@@ -264,11 +264,11 @@ for y in range(m):
         elif xy == 1:
             print ('O',end="") # obstacle
         elif xy == 2:
-            print ('S',end="") # start
+            print ('C',end="") # start
         elif xy == 3:
             print ('C',end="") # route
         elif xy == 4:
-            print ('F',end="") # finish
+            print ('Z',end="") # finish
     print()
 
 
