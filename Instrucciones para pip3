@@ -1,0 +1,25 @@
+
+
+1. Instalar el modulo con pip3
+En la carpeta donde se ubica este archivo actualmente, ejecutar "pip3 install ."
+
+
+2. Ejecutar  para el algoritmo genetico python3 main.py --tablero-inicial <nombre_archivp> --genetico --<direccion> --individuos <cantidad_individuos> --generaciones <cantidad_generaciones> --politica-cruce <politicas_cruce> --taza-mutacion <taza_mutacion>
+---------------------------------------------------------------------------------------------
+
+Se deben tener instalado
+
+1. pip esta instalado por defecto en las versiones >= 3, solamente se debe actualizar con
+
+pip3 install -U pip
+
+
+sino esta entonces
+
+
+sudo apt install python3-pip
+
+
+2. Intalar
+
+sudo apt-get install python3-setuptools
