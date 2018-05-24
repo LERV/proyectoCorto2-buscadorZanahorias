@@ -114,9 +114,10 @@ El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
 
 ## 7. Referencias Bibliográficas
 
-1. A* Search - YouTube. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.youtube.com/watch?v=6TsL96NAZCo
-2. A* search algorithm. (2018, mayo 17). En Wikipedia. Recuperado a partir de https://en.wikipedia.org/w/index.php?title=A*_search_algorithm&oldid=841756385_
-3. Algoritmo de búsqueda A*. (2018, abril 12). En Wikipedia, la enciclopedia libre. Recuperado a partir de https://es.wikipedia.org/w/index.php?title=Algoritmo_de_b%C3%BAsqueda_A*&oldid=106980195
-4. Algoritmo de búsqueda A* (A estrella) - Inteligencia Artificial UD. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://20151578079ia.blogspot.es/1508616746/algoritmo-de-busqueda-a-a-estrella-/
-5. A-star Shortest Path Algorithm « Python recipes « ActiveState Code. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://code.activestate.com/recipes/577519-a-star-shortest-path-algorithm/
-6. Implementation of A*. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.redblobgames.com/pathfinding/a-star/implementation.html
+1. ¿Pruebas de integración, funcionales, de carga...? ¡Qué jaleo! ¿Qué diferencias hay? (2014, julio 4). Recuperado 24 de mayo de 2018, a partir de http://www.javiergarzas.com/2014/07/tipos-de-pruebas-10-min.html
+2. A* Search - YouTube. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.youtube.com/watch?v=6TsL96NAZCo
+3. A* search algorithm. (2018, mayo 17). En Wikipedia. Recuperado a partir de https://en.wikipedia.org/w/index.php?title=A*_search_algorithm&oldid=841756385_
+4. Algoritmo de búsqueda A*. (2018, abril 12). En Wikipedia, la enciclopedia libre. Recuperado a partir de https://es.wikipedia.org/w/index.php?title=Algoritmo_de_b%C3%BAsqueda_A*&oldid=106980195
+5. Algoritmo de búsqueda A* (A estrella) - Inteligencia Artificial UD. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://20151578079ia.blogspot.es/1508616746/algoritmo-de-busqueda-a-a-estrella-/
+6. A-star Shortest Path Algorithm « Python recipes « ActiveState Code. (s. f.). Recuperado 23 de mayo de 2018, a partir de http://code.activestate.com/recipes/577519-a-star-shortest-path-algorithm/
+7. Implementation of A*. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.redblobgames.com/pathfinding/a-star/implementation.html
