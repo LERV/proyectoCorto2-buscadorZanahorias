@@ -300,6 +300,7 @@ def startGenetic(board, direction, population_length, generations, crossPolicy, 
             generate_csv(population[i][0], str(generation), str(i), direction)
     print("El mejor fue el individuo: " + str(bestBoard[6]) 
 	+ " de la generacion " + str(bestBoard[5]) + " con una aptitud: " + str(bestBoard[4]))
+    return 0
 
 # Mueve el conejo en la direccion indicada
 def move(r_x, r_y, direction):
