@@ -37,7 +37,7 @@ class Field:
             for j in range(len(self.field_list[i])):
                 if self.field_list[i][j] == "Z":
                     self.carrots_position_list.append((i,j))
-        print("Position of carrots found: ", self.carrots_position_list)
+        #print("Position of carrots found: ", self.carrots_position_list)
 
     def find_bunny(self):
         for i in range(len(self.field_list)):
@@ -46,14 +46,14 @@ class Field:
                 if self.field_list[i][j] == "C":
                     self.bunny_position=(i,j)
 
-        print("Bunny position: ", self.bunny_position)
+        #print("Bunny position: ", self.bunny_position)
 
     #Function that store a open file in
     def store_field_list(self,filename):      
         field_file = open(filename, "r")
         for line in field_file:
             self.field_list.append((line.split(','))[:-1])
-        print(self.field_list)
+        #print(self.field_list)
 
 class node:
     xPos = 0 # x position
@@ -65,15 +65,18 @@ class node:
         self.yPos = yPos
         self.distance = distance
         self.priority = priority
+
     def __lt__(self, other): # comparison method for priority queue
         return self.priority < other.priority
     
     def updatePriority(self, xDest, yDest):
         #f(n)=g(n)+h(n)
         self.priority = self.distance + self.estimate(xDest, yDest) * 10 # A*
+    
     # give higher priority to going straight instead of diagonally
     def nextMove(self, dirs, d): # d: direction to move
         self.distance += 10
+    
     # Estimation function for the remaining distance to the goal.
     def estimate(self, xDest, yDest):
         xd = xDest - self.xPos
@@ -100,6 +103,7 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
     pq = [[], []] # priority queues of open (not-yet-tried) nodes
     pqi = 0 # priority queue index
+    
     # create the start node and push into list of open nodes
     n0 = node(xA, yA, 0, 0)
     n0.updatePriority(xB, yB)
@@ -108,6 +112,7 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
     # A* search
     while len(pq[pqi]) > 0:
+        
         # get the current node w/ the highest priority
         # from the list of open nodes
         n1 = pq[pqi][0] # top node
@@ -121,14 +126,16 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
         # quit searching when the goal is reached
         # if n0.estimate(xB, yB) == 0:
         if x == xB and y == yB:
+            
             # generate the path from finish to start
             # by following the dirs
             path = ''
             while not (x == xA and y == yA):
                 j = dir_map[y][x]
                 c = str((j + dirs // 2) % dirs)
-                print("Si llega...-C:",c," -j:",j," -dirs",dirs)
-                print("x,y:",x,y)
+                
+                # print("Si llega...-C:",c," -j:",j," -dirs",dirs)
+                #print("x,y:",x,y)
                 path = c + path
                 x += dx[j]
                 y += dy[j]
@@ -140,21 +147,27 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
             ydy = y + dy[i]
             if not (xdx < 0 or xdx > n-1 or ydy < 0 or ydy > m - 1
                     or the_map[ydy][xdx] == 1 or closed_nodes_map[ydy][xdx] == 1):
+                
                 # generate a child node
                 m0 = node(xdx, ydy, n0.distance, n0.priority)
                 m0.nextMove(dirs, i)
                 m0.updatePriority(xB, yB)
+                
                 # if it is not in the open list then add into that
                 if open_nodes_map[ydy][xdx] == 0:
                     open_nodes_map[ydy][xdx] = m0.priority
                     heappush(pq[pqi], m0)
+                    
                     # mark its parent node direction
                     dir_map[ydy][xdx] = (i + dirs // 2) % dirs
                 elif open_nodes_map[ydy][xdx] > m0.priority:
+                    
                     # update the priority
                     open_nodes_map[ydy][xdx] = m0.priority
+                    
                     # update the parent direction
                     dir_map[ydy][xdx] = (i + dirs // 2) % dirs
+                    
                     # replace the node
                     # by emptying one pq to the other one
                     # except the node to be replaced will be ignored
@@ -163,6 +176,7 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
                         heappush(pq[1 - pqi], pq[pqi][0])
                         heappop(pq[pqi])
                     heappop(pq[pqi]) # remove the target node
+                    
                     # empty the larger size priority queue to the smaller one
                     if len(pq[pqi]) > len(pq[1 - pqi]):
                         pqi = 1 - pqi
@@ -175,7 +189,7 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
 # MAIN
 #****************************Generacion de mapa*******************************
-nuevoCampo=Field("entrada.txt")
+"""nuevoCampo=Field("entrada.txt")
 print("***************************************************************")
 
 print("Mapa:",nuevoCampo.field_list)
@@ -184,7 +198,7 @@ print("Conejo pos:",nuevoCampo.bunny_position)
 
 input('Press Enter...')
 #******************************************************************************
-
+"""
 dirs = 4 # number of possible directions to move on the map
 
 
@@ -216,7 +230,7 @@ print ("rura:",route)
 
 # mark the route on the map
 if len(route) > 0:
-    x = xApthon
+    x = xA
     y = yA
     the_map[y][x] = 2
     for i in range(len(route)):
@@ -249,7 +263,7 @@ for y in range(m):
 #En next move generar txt
 
 #****************************Generacion de mapa*******************************
-nuevoCampo=Field("entrada.txt")
+"""nuevoCampo=Field("entrada.txt")
 print("***************************************************************")
 
 print("Mapa:",nuevoCampo.field_list)
@@ -258,3 +272,4 @@ print("Conejo pos:",nuevoCampo.bunny_position)
 
 input('Press Enter...')
 #******************************************************************************
+"""
