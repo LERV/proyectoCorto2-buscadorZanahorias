@@ -197,7 +197,11 @@ def pathFind(the_map, n, m, dirs, dx, dy, xA, yA, xB, yB):
 
 class carrotsSearch:
     """docstring for ClassName"""
-    def __init__(self, filename):
+    carrotsForFind=0
+    bunnyvision=0
+    def __init__(self, filename, carrotsForFind, bunnyVision):
+        self.carrotsForFind=carrotsForFind
+        self.bunnyvision=bunnyVision
 
         #****************************Generacion de mapa*******************************
         nuevoCampo=Field(filename)
@@ -212,7 +216,7 @@ class carrotsSearch:
         #******************************************************************************
         print()
         print()
-        for parOrdenadoZ in range(len(nuevoCampo.carrots_position_list)):
+        for parOrdenadoZ in range(carrotsForFind):
 
             print("****************************Buscando Zanahoría #******",parOrdenadoZ)
 
@@ -222,8 +226,10 @@ class carrotsSearch:
             dx = [1, 0, -1, 0] #Derecha=1 Izquierda=-1
             dy = [0, 1, 0, -1] #Abajo
 
+            the_mapAux=[]
+            for cont in range(len(the_mapGlobal)):
+                the_mapAux.append(the_mapGlobal[cont].copy())
 
-            the_mapAux=the_mapGlobal[:]
             #MAP
             m = len(the_mapAux) # horizontal size of the map
             n = len(the_mapAux[0]) # vertical size of the map
@@ -233,10 +239,13 @@ class carrotsSearch:
             for i in range(m): # create empty map
                 the_mapX.append(list(row))
 
-            print("MAp X",the_mapX)
+            #print("MAp X",the_mapX)
 
 
             #-----------------------
+            print("Mapa actual:",id(the_mapAux[0]),id(the_mapGlobal[0]))
+            print("Mapa actual__:",the_mapAux)
+
 
             (xA, yA, xB, yB) = (nuevoCampo.bunny_position[0],nuevoCampo.bunny_position[1],nuevoCampo.carrots_position_list[parOrdenadoZ][0],nuevoCampo.carrots_position_list[parOrdenadoZ][1]) #Points Start and Finish
             nuevoCampo.bunny_position=(nuevoCampo.carrots_position_list[parOrdenadoZ][0],nuevoCampo.carrots_position_list[parOrdenadoZ][1])
@@ -257,23 +266,25 @@ class carrotsSearch:
             print ('Time to generate the route (seconds): ', time.time() - t)
             print ("Ruta:",route)
 
+            
+            the_mapAuxParaImprimir=the_mapAux[:]
             # mark the route on the map
             if len(route) > 0:
                 x = xA
                 y = yA
-                the_mapAux[y][x] = 2
+                the_mapAuxParaImprimir[y][x] = 2
                 for i in range(len(route)):
                     j = int(route[i])
                     x += dx[j]
                     y += dy[j]
-                    the_mapAux[y][x] = 3
-                the_mapAux[y][x] = 4
+                    the_mapAuxParaImprimir[y][x] = 3
+                the_mapAuxParaImprimir[y][x] = 4
 
             # display the map with the route added
             print ('Map:')
             for y in range(m):
                 for x in range(n):
-                    xy = the_mapAux[y][x]
+                    xy = the_mapAuxParaImprimir[y][x]
                     if xy == 0:
                         print ('.',end="") # space
                     elif xy == 1:
@@ -290,7 +301,7 @@ class carrotsSearch:
         
 
 # MAIN
-nuevabusqueda=carrotsSearch("entrada2.txt")
+nuevabusqueda=carrotsSearch("entrada2.txt",2,2) #filename, carrot for find, vision
 
 #Busco todoas Z, y me voy a la primera
 #Ver ? rango vision
