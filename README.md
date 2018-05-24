@@ -13,6 +13,14 @@
 
 ## 1. Introducción
 
+Los algoritmos de búsqueda son métodos que permiten encontrar de una manera eficiente un camino que permita llegar a un elemento, posición o lugar.
+
+Dichos algoritmos son utilizados para resolver problemas de ruta más corta para un transporte, cálculo del dezplazmiento que debe hacer una persona para moverse de un punto a otro, y muchos más.
+
+Algunos de los algoritmos para el cálculo de la ruta más corta se encuentran: Dijkstra, algoritmo a* y algoritmos genéticos.
+
+Para efectos de investigación, se realizará un proyecto que pretende estudiar y analizar la realización y pruebas del algoritmo a* y algoritmo genético, aplicado al problema de que un conejo debe buscar zanahorias en un campo de dimensiones definidas.
+
 ## 2. Descripción del Problema
 
 Se procesarán tableros rectangulares representados como archivos de texto que contendrán un conejo y múltiples zanahorias.
@@ -43,15 +51,20 @@ El diseño del algoritmo posee los siguientes componentes:
 * **Función de costo _g(x)_**: Es el costo o peso que hay para llegar a un cierto nodo o posición. Para este algoritmo, el costo es
 * **Función de valor _f(x)_**: Es la suma de _g(x)_ con _h(x)_, que permite escoger a cual nodo acceder para obtener la ruta más corta para llegar a un punto.
 
-
 #### 3.1.1. Diseño de función heurística _(hx)_
 La función heurística es un valor que se asigna a cada elemento o nodo en una matriz, es decir, la estructura que define la ubicación de las zanahorias y del conejo en el campo.
 
+#### 3.1.2 Funcionamiento del algoritmo
+El algoritmo comienza localizando el conejo en el campo. Luego, se verifican los nodos o posiciones vecinas a las cuales se puede dezplazar el conejo, y además comprobar si hay zanahorias cercanas.
+Dichos nodos vecinos son almacenados en una lista, y por cada uno de ellos se calcula la función _f(n)_, la cual es la suma de _g(n)_ con _h(n)_.
+
+Después de calcular _f(n)_, se verifica cual nodo posee el menor valor y se cambia la posición del conejo hacia ese nodo, manteniendo un acumulado del recorrido realizado. Después se verifica nuevamente los vecinos actuales, se calcula f(n) por cada uno de ellos y se verifica cual posee el menor valor, y así hasta encontrar una zanahoria.
+
+Cuando se encuentra una zanahoria, se guarda su aparición, y se continúa con la busqueda de otra zanahoria, siempre guardando su recorrido en _f(n)_ hasta llgar a la última zanahoria establecida.
 
 
 
 ### 3.2. Pruebas y análisis del algoritmo
-
 
 ## 4. Algoritmo Genético
 
@@ -94,13 +107,13 @@ El ciclo de vida del algoritmo en sí, consiste en lo siguiente:
 ### 4.2. Pruebas y análisis del algoritmo
 Se analizará el resultado para el algoritmo para el siguiente tablero:
 
-Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6 | Columna 7
--- | --  | --  | --  | --  | -- | --
- | | |Z| | |
- | | | |Z| |
- | |Z| | | |
- | | |C| | |
- |Z| | | | |
+Columna 1 | Columna 2 | Columna 3 | Columna 4 | Columna 5 | Columna 6
+-- | --  | --  | --  | --  | --
+| | | |Z|  
+|Z| | | |Z
+| | |Z| | 
+| | | |C| 
+| |Z| | | 
 
 Se empieza con dirección hacia la derecha y se obtienen los siguientes resultados:
 * Se ejecutó el algoritmo con 2 tazas de mutación (0.1 y 0.3) y se observa en el gráfico que se obtienen mejores resultados con la taza de de 0.3. El gráfico muestra la cantidad de veces que el algoritmo convergio a un máximo global. Un algoritmo genético debe tener una taza de mutación baja para poder mantener una zona de convergencia fija y no alejarse mutando la mayoria de los individuos. Se concluye que la taza de 0.3 obtiene mejores resultados.
