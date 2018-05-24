@@ -158,7 +158,7 @@ print (route)
 
 # mark the route on the map
 if len(route) > 0:
-    x = xA
+    x = xApthon
     y = yA
     the_map[y][x] = 2
     for i in range(len(route)):

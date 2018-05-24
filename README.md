@@ -48,6 +48,8 @@ El diseño del algoritmo posee los siguientes componentes:
 La función heurística es un valor que se signa a cada elemento o nodo en una matriz, es decir, la estructura que define la ubicación de las zanahorias y del conejo en el campo.
 
 
+
+
 ### 3.2. Pruebas y análisis del algoritmo
 
 
@@ -57,15 +59,13 @@ La función heurística es un valor que se signa a cada elemento o nodo en una m
 
 ### 4.2. Pruebas y análisis del algoritmo
 
-## 5. Pruebas unitarias del sistema
-
-## 6. Conclusiones
+## 5. Conclusiones
 
 
-## 7. Apéndice
+## 6. Apéndice
 
 
-## 8. Referencias Bibliográficas
+## 7. Referencias Bibliográficas
 
 1. A* Search - YouTube. (s. f.). Recuperado 23 de mayo de 2018, a partir de https://www.youtube.com/watch?v=6TsL96NAZCo
 2. A* search algorithm. (2018, mayo 17). En Wikipedia. Recuperado a partir de https://en.wikipedia.org/w/index.php?title=A*_search_algorithm&oldid=841756385
